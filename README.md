@@ -47,10 +47,13 @@ components/
 - **Products & prices** — the items in `components/Shop.tsx`: Crochet Ruffle Hat $70 ·
   Hat & Scarf Set $65 · Leg Warmers $80 · Throw Blanket $160 · Comfort for Beds $290 ·
   Chair Blankets $150 · Baby Blankets $75.
-- **Order form** — `components/OrderForm.tsx` validates, then opens the customer's email
-  app with a pre-filled order addressed to Jamie (`mailto:`). She receives orders straight
-  in her inbox and handles them herself — no backend or third-party service needed. (If she
-  ever wants a hosted form instead, POST the `FormData` inside `handleSubmit`.)
+- **Order form** — `components/OrderForm.tsx` validates client-side, then POSTs to
+  `app/api/order/route.ts`, which emails the order to Jamie via **Resend**. She gets each
+  request in her inbox; replies go straight to the customer (`replyTo`).
+  - Requires `RESEND_API_KEY` (set in `.env.local` locally and in Vercel).
+  - The `from` domain (`orders@crochetingismytherapy.com`) **must be verified in Resend**
+    (Resend → Domains) or sends fail with 502. Override sender/recipient via
+    `ORDER_FROM_EMAIL` / `ORDER_TO_EMAIL` env vars.
 
 ## Still to swap before launch (optional)
 

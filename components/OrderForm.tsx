@@ -11,6 +11,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function OrderForm() {
   const [errors, setErrors] = useState<Errors>({});
+  const [loading, setLoading] = useState(false);
 
   const clearError = (key: keyof Errors) =>
     setErrors((prev) => {
@@ -20,22 +21,26 @@ export default function OrderForm() {
       return next;
     });
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
-    const name = String(data.get("name") ?? "").trim();
-    const email = String(data.get("email") ?? "").trim();
-    const message = String(data.get("message") ?? "").trim();
+    const payload = {
+      name: String(data.get("name") ?? "").trim(),
+      email: String(data.get("email") ?? "").trim(),
+      phone: String(data.get("phone") ?? "").trim(),
+      item: String(data.get("item") ?? "").trim(),
+      message: String(data.get("message") ?? "").trim(),
+    };
 
     // Analytics: every submit-button click (Google Analytics → Events).
     sendGAEvent("event", "order_submit_click");
 
     const next: Errors = {};
-    if (!name) next.name = "Please add your name.";
-    if (!email) next.email = "I'll need an email to reply.";
-    else if (!EMAIL_RE.test(email)) next.email = "That email looks off — mind checking it?";
-    if (!message) next.message = "Tell me a little about what you'd like.";
+    if (!payload.name) next.name = "Please add your name.";
+    if (!payload.email) next.email = "I'll need an email to reply.";
+    else if (!EMAIL_RE.test(payload.email)) next.email = "That email looks off — mind checking it?";
+    if (!payload.message) next.message = "Tell me a little about what you'd like.";
 
     if (Object.keys(next).length) {
       setErrors(next);
@@ -46,32 +51,27 @@ export default function OrderForm() {
     }
 
     setErrors({});
+    setLoading(true);
+    try {
+      const res = await fetch("/api/order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error("send failed");
 
-    // Compose an order email for Jamie to receive and handle.
-    const phone = String(data.get("phone") ?? "").trim();
-    const item = String(data.get("item") ?? "");
-
-    // Analytics: a completed, valid order request (the number that matters).
-    sendGAEvent("event", "order_request", { item });
-    const lines = [
-      `Name: ${name}`,
-      `Email: ${email}`,
-      phone ? `Phone: ${phone}` : null,
-      `Looking for: ${item}`,
-      "",
-      "Details:",
-      message,
-    ].filter((l): l is string => l !== null);
-
-    const mailto =
-      `mailto:jamiecannady4102@gmail.com` +
-      `?subject=${encodeURIComponent(`Crochet order request — ${name}`)}` +
-      `&body=${encodeURIComponent(lines.join("\n"))}`;
-
-    window.location.href = mailto;
-    toast.success("Opening your email — just hit send and it comes straight to Jamie. 💜", {
-      duration: 6000,
-    });
+      // Analytics: a completed, delivered order request (the number that matters).
+      sendGAEvent("event", "order_request", { item: payload.item });
+      form.reset();
+      toast.success("Thank you! Your request is on its way to Jamie. 💜", { duration: 6000 });
+    } catch {
+      toast.error(
+        "Sorry — that didn't send. Please email jamiecannady4102@gmail.com or text (252) 571-0542.",
+        { duration: 8000 }
+      );
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -154,9 +154,11 @@ export default function OrderForm() {
           </div>
 
           <div className="form__actions">
-            <button className="btn" type="submit">Email my request</button>
+            <button className="btn" type="submit" data-state={loading ? "loading" : undefined} disabled={loading}>
+              Send my request
+            </button>
             <span style={{ fontSize: "var(--text-xs)", color: "var(--color-muted)" }}>
-              Opens your email app, addressed to Jamie.
+              Sent straight to Jamie — she&rsquo;ll reply within a day or two.
             </span>
           </div>
         </form>
