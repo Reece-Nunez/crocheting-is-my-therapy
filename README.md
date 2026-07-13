@@ -65,6 +65,23 @@ components/
   The original full-res uploads + unused extras (bags, other hats/sets) remain in
   `public/products/` — safe to delete to slim the deploy.
 
+## SEO
+
+- **Canonical domain** is set once in `lib/site.ts` (`site.url`) and feeds metadata,
+  sitemap, robots, and structured data. Change it there if the primary domain changes.
+- **Metadata** (`app/layout.tsx`) — title/description, keywords, canonical, Open Graph
+  (`/og.png`, 1200×630), Twitter `summary_large_image`, and robots directives.
+- **Structured data** (`components/JsonLd.tsx`) — JSON-LD `LocalBusiness`/`Store` (founder,
+  location, phone, payment, price range) + an `OfferCatalog` of every product with price and
+  `MadeToOrder` availability, plus `WebSite`. This is what makes her eligible for Google rich
+  results and local search. Product data is shared from `lib/products.ts`.
+- **Crawl files** — `app/robots.ts` → `/robots.txt`, `app/sitemap.ts` → `/sitemap.xml`,
+  `app/manifest.ts` → `/manifest.webmanifest`. Icons: `app/icon.svg` (favicon),
+  `app/apple-icon.png` (touch icon).
+- **After the domain is live**, submit the site in **Google Search Console** and add the
+  sitemap (`https://crochetingismytherapy.com/sitemap.xml`) so Google indexes it. Also create
+  a **Google Business Profile** for local "crochet near me" visibility.
+
 ## Analytics
 
 Order-form usage is tracked with **Google Analytics 4** via `@next/third-parties/google`:

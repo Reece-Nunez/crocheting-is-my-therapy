@@ -8,10 +8,12 @@ import OrderForm from "@/components/OrderForm";
 import Social from "@/components/Social";
 import Footer from "@/components/Footer";
 import Scallop from "@/components/Scallop";
+import JsonLd from "@/components/JsonLd";
 
 export default function Home() {
   return (
     <>
+      <JsonLd />
       <a className="skip-link" href="#shop">Skip to the shop</a>
       <Nav />
       <main id="top">
