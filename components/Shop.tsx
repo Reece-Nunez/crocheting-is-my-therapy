@@ -15,7 +15,7 @@ export default function Shop() {
           <p className="eyebrow">The shop</p>
           <h2>Made to order, in small batches.</h2>
           <p className="head__meta">
-            Made to order · every piece one-of-a-kind · pay by cash or CashApp
+            Made to order · every piece one-of-a-kind · 50% deposit to start
           </p>
         </div>
 

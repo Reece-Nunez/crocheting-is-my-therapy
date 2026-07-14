@@ -4,19 +4,19 @@ const STEPS = [
   {
     num: "01",
     title: "Pick or dream it up",
-    body: "Choose something from the shop, or tell me your idea, colours and size for a custom piece.",
+    body: "Choose from the shop or describe a custom piece; I'll confirm the price, colours and timing.",
     icon: <SwatchIcon width={30} height={30} />,
   },
   {
     num: "02",
-    title: "I hook it up",
-    body: "I confirm the details and price, then make your piece by hand. Made-to-order usually takes 1–2 weeks.",
+    title: "Deposit & I get hooking",
+    body: "A 50% deposit via CashApp starts your order, then I make it by hand — usually 1–2 weeks.",
     icon: <SparklesIcon width={30} height={30} />,
   },
   {
     num: "03",
-    title: "Cozy mail",
-    body: "Your finished piece is wrapped up and shipped to your door, ready to snuggle straight away.",
+    title: "Balance, then cozy mail",
+    body: "When it's done, you pay the balance plus shipping and it's on its way to your door.",
     icon: <TruckIcon width={30} height={30} />,
   },
 ];

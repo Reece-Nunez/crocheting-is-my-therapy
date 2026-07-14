@@ -1,5 +1,7 @@
-// Product catalogue — shared by the shop UI (components/Shop.tsx) and the
-// Product structured data (components/JsonLd.tsx). Keep prices in sync here.
+// Product catalogue — shared by the shop UI (components/Shop.tsx), the order-form
+// dropdown, and the Product structured data (components/JsonLd.tsx).
+// image: null renders a "Photo coming soon" placeholder — assign a /products/*.jpg
+// path once the correct photo is confirmed.
 
 export type Product = {
   name: string;
@@ -7,7 +9,7 @@ export type Product = {
   price: string; // display, e.g. "$70"
   priceUSD: number; // numeric, for structured data
   tag: string;
-  image: string | null; // /products/*.jpg, or null for a "photo coming soon" card
+  image: string | null;
   cta: string;
 };
 
@@ -19,6 +21,15 @@ export const PRODUCTS: Product[] = [
     priceUSD: 70,
     tag: "Made to order",
     image: "/products/ruffle-hat.jpg",
+    cta: "Order this",
+  },
+  {
+    name: "Men's & Women's Matching Hats",
+    desc: "Coordinating crochet hats for two — his and hers, in your colours.",
+    price: "$95",
+    priceUSD: 95,
+    tag: "Made to order",
+    image: null,
     cta: "Order this",
   },
   {
@@ -40,19 +51,46 @@ export const PRODUCTS: Product[] = [
     cta: "Order this",
   },
   {
-    name: "Throw Blanket",
-    desc: "A generous throw for the couch — warm, weighty and worn-in from the first night.",
-    price: "$160",
-    priceUSD: 160,
+    name: "Shoulder Bags",
+    desc: "A crochet shoulder bag that carries the essentials in style.",
+    price: "$75",
+    priceUSD: 75,
     tag: "Made to order",
-    image: "/products/throw-blanket.jpg",
+    image: null,
     cta: "Order this",
   },
   {
-    name: "Comfort for Beds",
-    desc: "A full bed-sized comfort blanket, hand-worked to layer over the whole bed.",
-    price: "$290",
-    priceUSD: 290,
+    name: "Pocketbooks",
+    desc: "A handmade crochet pocketbook — a purse with a little personality.",
+    price: "$80",
+    priceUSD: 80,
+    tag: "Made to order",
+    image: "/products/pocketbook.jpg",
+    cta: "Order this",
+  },
+  {
+    name: "Bible & Notebook Cover",
+    desc: "A snug crochet cover to protect a favourite Bible or notebook.",
+    price: "$100",
+    priceUSD: 100,
+    tag: "Made to order",
+    image: null,
+    cta: "Order this",
+  },
+  {
+    name: "Chair Cover",
+    desc: "A crochet cover to dress up a chair back or seat.",
+    price: "$80",
+    priceUSD: 80,
+    tag: "Made to order",
+    image: null,
+    cta: "Order this",
+  },
+  {
+    name: "Throw Blankets",
+    desc: "A generous throw for the couch — warm, weighty and worn-in from the first night.",
+    price: "$160",
+    priceUSD: 160,
     tag: "Made to order",
     image: null,
     cta: "Order this",
@@ -71,6 +109,15 @@ export const PRODUCTS: Product[] = [
     desc: "A soft, gift-ready baby blanket in gentle yarn — sweet, snuggly and heirloom-bound.",
     price: "$75",
     priceUSD: 75,
+    tag: "Made to order",
+    image: null,
+    cta: "Order this",
+  },
+  {
+    name: "Comforter",
+    desc: "A full bed-sized comforter, hand-worked to layer over the whole bed.",
+    price: "$290",
+    priceUSD: 290,
     tag: "Made to order",
     image: null,
     cta: "Order this",

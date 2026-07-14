@@ -615,6 +615,16 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 a.order__contact-row { transition: color var(--dur-short) var(--ease-out); }
 a.order__contact-row:hover { color: var(--color-accent-deep); }
 .order__contact-row strong { color: var(--color-accent-deep); font-weight: 600; }
+.order__terms {
+  margin-top: var(--space-md);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  color: var(--color-ink-2);
+  background: var(--color-accent-soft);
+  border-radius: var(--radius-md);
+  padding: var(--space-md) var(--space-lg);
+}
+.order__terms strong { color: var(--color-accent-deep); font-weight: 600; }
 
 .form {
   background: var(--color-paper);

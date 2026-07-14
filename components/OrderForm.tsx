@@ -4,6 +4,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { sendGAEvent } from "@next/third-parties/google";
 import { EnvelopeIcon, PhoneIcon, BanknotesIcon } from "@heroicons/react/24/outline";
+import { PRODUCTS } from "@/lib/products";
 
 type Errors = Partial<Record<"name" | "email" | "message", string>>;
 
@@ -96,9 +97,14 @@ export default function OrderForm() {
             </a>
             <p className="order__contact-row">
               <BanknotesIcon width={18} height={18} />
-              <span>Cash or CashApp · <strong>$PrayWifeJamieCannady</strong></span>
+              <span>CashApp · <strong>$PrayWifeJamieCannady</strong></span>
             </p>
           </div>
+
+          <p className="order__terms">
+            <strong>How it works:</strong> a 50% deposit (via CashApp) gets your piece
+            started, and the balance plus shipping is due when it&rsquo;s finished.
+          </p>
         </div>
 
         <form className="form reveal" style={{ "--i": 1 } as React.CSSProperties} onSubmit={handleSubmit} noValidate>
@@ -127,14 +133,10 @@ export default function OrderForm() {
 
           <div className="field">
             <label htmlFor="f-item">What are you after?</label>
-            <select className="select" id="f-item" name="item" defaultValue="Crochet Ruffle Hat">
-              <option value="Crochet Ruffle Hat">Crochet Ruffle Hat</option>
-              <option value="Hat & Scarf Set">Hat &amp; Scarf Set</option>
-              <option value="Leg Warmers">Leg Warmers</option>
-              <option value="Throw Blanket">Throw Blanket</option>
-              <option value="Comfort for Beds">Comfort for Beds</option>
-              <option value="Chair Blankets">Chair Blankets</option>
-              <option value="Baby Blankets">Baby Blankets</option>
+            <select className="select" id="f-item" name="item" defaultValue={PRODUCTS[0].name}>
+              {PRODUCTS.map((p) => (
+                <option key={p.name} value={p.name}>{p.name}</option>
+              ))}
               <option value="Something custom">Something custom</option>
               <option value="Not sure yet">Not sure yet</option>
             </select>

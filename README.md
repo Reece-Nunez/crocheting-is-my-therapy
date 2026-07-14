@@ -57,13 +57,13 @@ components/
 
 ## Still to swap before launch (optional)
 
-- **Product photos** — 5 of 7 cards show a real photo from `public/products/`
-  (`ruffle-hat.jpg`, `hat-scarf-set.jpg`, `leg-warmers-web.jpg`, `throw-blanket.jpg`,
-  `chair-blanket.jpg`), served responsively via `next/image`. **Comfort for Beds** and
-  **Baby Blankets** render a "Photo coming soon" placeholder (`image: null` in
-  `components/Shop.tsx`) — set their `image` to a `/products/…jpg` path when photos are ready.
-  The original full-res uploads + unused extras (bags, other hats/sets) remain in
-  `public/products/` — safe to delete to slim the deploy.
+- **Product photos** — the catalogue lives in `lib/products.ts` (12 items). 5 have confirmed
+  photos (`ruffle-hat.jpg`, `hat-scarf-set.jpg`, `leg-warmers-web.jpg`, `pocketbook.jpg`,
+  `chair-blanket.jpg`); the rest use a "Photo coming soon" placeholder (`image: null`) until
+  the correct photo is confirmed. Set a product's `image` to a `/products/…jpg` path to fill it.
+  Newly uploaded raw photos (large, unmatched) sit **untracked** in `public/products/` — once
+  matched, optimize them (`magick src -auto-orient -resize 1100x1100 -strip -quality 82 out.jpg`)
+  and reference the web copy.
 
 ## SEO
 

@@ -22,7 +22,7 @@ export default function JsonLd() {
       foundingDate: site.foundingYear,
       founder: { "@type": "Person", name: site.founder },
       priceRange,
-      paymentAccepted: "Cash, CashApp",
+      paymentAccepted: "CashApp",
       currenciesAccepted: "USD",
       address: {
         "@type": "PostalAddress",

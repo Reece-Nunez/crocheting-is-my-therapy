@@ -15,7 +15,7 @@ export default function Footer() {
           <a href="tel:+12525710542">(252) 571-0542</a>
         </div>
         <p className="footer__pay">
-          Cash or CashApp · <strong>$PrayWifeJamieCannady</strong>
+          CashApp · <strong>$PrayWifeJamieCannady</strong>
         </p>
         <p className="footer__copy">© 2026 Jamie Cannady · Est. 2020</p>
       </div>
