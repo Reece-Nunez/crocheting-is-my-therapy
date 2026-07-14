@@ -27,6 +27,7 @@ export default function Home() {
         <OrderForm />
         <Social />
       </main>
+      <Scallop color="var(--color-paper-3)" />
       <Footer />
     </>
   );

@@ -84,26 +84,21 @@ export default function OrderForm() {
             Fill this out and I&rsquo;ll get back to you within a couple of days with pricing,
             colours and timing. No commitment — let&rsquo;s just chat about it first.
           </p>
-          <p className="order__note">
-            <EnvelopeIcon width={18} height={18} />
-            <span className="order__note-text">
-              Prefer email? Reach me any time at{" "}
-              <a className="tlink" href="mailto:jamiecannady4102@gmail.com">jamiecannady4102@gmail.com</a>.
-            </span>
-          </p>
-          <p className="order__note">
-            <PhoneIcon width={18} height={18} />
-            <span className="order__note-text">
-              Or call &amp; text: <a className="tlink" href="tel:+12525710542">(252) 571-0542</a>.
-            </span>
-          </p>
-          <p className="order__note">
-            <BanknotesIcon width={18} height={18} />
-            <span className="order__note-text">
-              Payment is easy: <strong style={{ color: "var(--color-accent-deep)", fontWeight: 600 }}>cash</strong> or CashApp{" "}
-              <strong style={{ color: "var(--color-accent-deep)", fontWeight: 600 }}>$PrayWifeJamieCannady</strong>.
-            </span>
-          </p>
+          <div className="order__contact">
+            <p className="order__contact-label">Or reach me directly</p>
+            <a className="order__contact-row" href="mailto:jamiecannady4102@gmail.com">
+              <EnvelopeIcon width={18} height={18} />
+              <span>jamiecannady4102@gmail.com</span>
+            </a>
+            <a className="order__contact-row" href="tel:+12525710542">
+              <PhoneIcon width={18} height={18} />
+              <span>(252) 571-0542</span>
+            </a>
+            <p className="order__contact-row">
+              <BanknotesIcon width={18} height={18} />
+              <span>Cash or CashApp · <strong>$PrayWifeJamieCannady</strong></span>
+            </p>
+          </div>
         </div>
 
         <form className="form reveal" style={{ "--i": 1 } as React.CSSProperties} onSubmit={handleSubmit} noValidate>
