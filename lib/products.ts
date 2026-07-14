@@ -53,8 +53,8 @@ export const PRODUCTS: Product[] = [
   {
     name: "Shoulder Bags",
     desc: "A crochet shoulder bag that carries the essentials in style.",
-    price: "$75",
-    priceUSD: 75,
+    price: "$290",
+    priceUSD: 290,
     tag: "Made to order",
     image: "/products/shoulder-bag.jpg",
     cta: "Order this",
@@ -62,8 +62,8 @@ export const PRODUCTS: Product[] = [
   {
     name: "Pocketbooks",
     desc: "A handmade crochet pocketbook — a purse with a little personality.",
-    price: "$80",
-    priceUSD: 80,
+    price: "$290",
+    priceUSD: 290,
     tag: "Made to order",
     image: "/products/pocketbook.jpg",
     cta: "Order this",
