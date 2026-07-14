@@ -366,7 +366,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .hero { padding-block: clamp(2.5rem, 6vw, 5rem) var(--space-3xl); position: relative; }
 .hero__grid {
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   gap: clamp(1.5rem, 5vw, 4rem);
   align-items: center;
 }
@@ -526,7 +526,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .about { background: var(--color-paper-2); }
 .about__grid {
   display: grid;
-  grid-template-columns: 0.8fr 1.1fr;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.1fr);
   gap: clamp(1.5rem, 5vw, 3.5rem);
   align-items: center;
 }
@@ -577,7 +577,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .order { background: var(--color-paper-3); }
 .order__grid {
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   gap: clamp(1.5rem, 5vw, 3.5rem);
   align-items: start;
 }
@@ -594,6 +594,9 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .order__note:first-of-type { margin-top: var(--space-lg); }
 .order__note + .order__note { margin-top: var(--space-sm); }
 .order__note svg { color: var(--color-accent); flex: none; margin-top: 2px; }
+/* let long email / CashApp handle wrap instead of forcing the column wider */
+.order__note-text { min-width: 0; overflow-wrap: anywhere; }
+.order__note .tlink { white-space: normal; }
 
 .form {
   background: var(--color-paper);
@@ -703,13 +706,13 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
  *  Responsive
  * ============================================================= */
 @media (max-width: 60rem) {
-  .hero__grid { grid-template-columns: 1fr; }
+  .hero__grid { grid-template-columns: minmax(0, 1fr); }
   .hero__art { order: -1; max-width: 340px; margin-inline: auto; }
-  .about__grid { grid-template-columns: 1fr; }
+  .about__grid { grid-template-columns: minmax(0, 1fr); }
   .about__portrait { max-width: 320px; }
-  .order__grid { grid-template-columns: 1fr; }
+  .order__grid { grid-template-columns: minmax(0, 1fr); }
   .shop__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .steps { grid-template-columns: 1fr; gap: var(--space-lg); }
+  .steps { grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); }
 
   .nav__toggle {
     display: inline-flex;
@@ -739,7 +742,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .nav__links[data-open="true"] { clip-path: inset(0 0 0 0); }
   .nav__links li { border-bottom: var(--rule-soft); }
   .nav__links .nav__link { display: block; padding-block: var(--space-md); }
-  .nav__links .btn { margin-top: var(--space-md); width: 100%; }
+  .nav__links .btn { margin-top: var(--space-md); width: 100%; min-height: 44px; }
   .nav__link::after { display: none; }
 }
 
@@ -748,6 +751,14 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .shop__grid { grid-template-columns: 1fr; }
   .hero__cta .btn { flex: 1 1 auto; }
   .footer__meta { justify-content: center; text-align: center; }
+
+  /* compact wordmarks so the hamburger fits on small phones */
+  .nav__inner { gap: var(--space-sm); }
+  .nav .wordmark { font-size: var(--text-sm); gap: var(--space-2xs); min-width: 0; }
+  .nav .wordmark span { overflow: hidden; text-overflow: ellipsis; }
+  .nav .wordmark__logo { height: 40px; width: 40px; }
+  .wordmark__logo--footer { height: 56px; width: 56px; }
+  .footer__meta .wordmark { font-size: var(--text-base); }
 }
 
 @media (prefers-reduced-motion: reduce) {

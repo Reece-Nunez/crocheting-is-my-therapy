@@ -86,17 +86,23 @@ export default function OrderForm() {
           </p>
           <p className="order__note">
             <EnvelopeIcon width={18} height={18} />
-            Prefer email? Reach me any time at{" "}
-            <a className="tlink" href="mailto:jamiecannady4102@gmail.com">jamiecannady4102@gmail.com</a>.
+            <span className="order__note-text">
+              Prefer email? Reach me any time at{" "}
+              <a className="tlink" href="mailto:jamiecannady4102@gmail.com">jamiecannady4102@gmail.com</a>.
+            </span>
           </p>
           <p className="order__note">
             <PhoneIcon width={18} height={18} />
-            Or call &amp; text: <a className="tlink" href="tel:+12525710542">(252) 571-0542</a>.
+            <span className="order__note-text">
+              Or call &amp; text: <a className="tlink" href="tel:+12525710542">(252) 571-0542</a>.
+            </span>
           </p>
           <p className="order__note">
             <BanknotesIcon width={18} height={18} />
-            Payment is easy: <strong style={{ color: "var(--color-accent-deep)", fontWeight: 600 }}>cash</strong> or CashApp{" "}
-            <strong style={{ color: "var(--color-accent-deep)", fontWeight: 600 }}>$PrayWifeJamieCannady</strong>.
+            <span className="order__note-text">
+              Payment is easy: <strong style={{ color: "var(--color-accent-deep)", fontWeight: 600 }}>cash</strong> or CashApp{" "}
+              <strong style={{ color: "var(--color-accent-deep)", fontWeight: 600 }}>$PrayWifeJamieCannady</strong>.
+            </span>
           </p>
         </div>
 
