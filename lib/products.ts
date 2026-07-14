@@ -29,7 +29,7 @@ export const PRODUCTS: Product[] = [
     price: "$95",
     priceUSD: 95,
     tag: "Made to order",
-    image: null,
+    image: "/products/mens-matching-hat.jpg",
     cta: "Order this",
   },
   {
@@ -56,7 +56,7 @@ export const PRODUCTS: Product[] = [
     price: "$75",
     priceUSD: 75,
     tag: "Made to order",
-    image: null,
+    image: "/products/shoulder-bag.jpg",
     cta: "Order this",
   },
   {
@@ -74,7 +74,7 @@ export const PRODUCTS: Product[] = [
     price: "$100",
     priceUSD: 100,
     tag: "Made to order",
-    image: null,
+    image: "/products/bible-notebook-cover.jpg",
     cta: "Order this",
   },
   {
@@ -92,7 +92,7 @@ export const PRODUCTS: Product[] = [
     price: "$160",
     priceUSD: 160,
     tag: "Made to order",
-    image: null,
+    image: "/products/throw-blanket.jpg",
     cta: "Order this",
   },
   {
