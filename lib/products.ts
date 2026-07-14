@@ -101,7 +101,7 @@ export const PRODUCTS: Product[] = [
     price: "$150",
     priceUSD: 150,
     tag: "Made to order",
-    image: "/products/chair-blanket.jpg",
+    image: null,
     cta: "Order this",
   },
   {
