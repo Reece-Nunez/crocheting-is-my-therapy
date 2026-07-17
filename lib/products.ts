@@ -17,8 +17,8 @@ export const PRODUCTS: Product[] = [
   {
     name: "Crochet Ruffle Hat",
     desc: "A soft crochet hat finished with a pretty ruffled brim — just tell me your colour.",
-    price: "$150",
-    priceUSD: 150,
+    price: "$285",
+    priceUSD: 285,
     tag: "Made to order",
     image: "/products/ruffle-hat.jpg",
     cta: "Order this",
@@ -26,8 +26,8 @@ export const PRODUCTS: Product[] = [
   {
     name: "Men's & Women's Matching Hats",
     desc: "Coordinating crochet hats for two — his and hers, in your colours.",
-    price: "$95",
-    priceUSD: 95,
+    price: "$295",
+    priceUSD: 295,
     tag: "Made to order",
     image: "/products/mens-matching-hat.jpg",
     cta: "Order this",
