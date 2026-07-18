@@ -24,6 +24,15 @@ export const PRODUCTS: Product[] = [
     cta: "Order this",
   },
   {
+    name: "Crochet Beanie Hat",
+    desc: "A chunky ribbed beanie with a soft rolled brim — the hat on its own, in your colour.",
+    price: "$195",
+    priceUSD: 195,
+    tag: "Made to order",
+    image: "/products/crochet-beanie.jpg",
+    cta: "Order this",
+  },
+  {
     name: "Men's & Women's Matching Hats",
     desc: "Coordinating crochet hats for two — his and hers, in your colours.",
     price: "$295",
