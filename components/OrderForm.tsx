@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { sendGAEvent } from "@next/third-parties/google";
 import { EnvelopeIcon, PhoneIcon, BanknotesIcon } from "@heroicons/react/24/outline";
@@ -13,6 +13,13 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export default function OrderForm() {
   const [errors, setErrors] = useState<Errors>({});
   const [loading, setLoading] = useState(false);
+
+  // Bot check: measure how long the form was open. Measured entirely on the
+  // client so a skewed device clock can't produce a false rejection.
+  const openedAt = useRef(0);
+  useEffect(() => {
+    openedAt.current = Date.now();
+  }, []);
 
   const clearError = (key: keyof Errors) =>
     setErrors((prev) => {
@@ -32,6 +39,9 @@ export default function OrderForm() {
       phone: String(data.get("phone") ?? "").trim(),
       item: String(data.get("item") ?? "").trim(),
       message: String(data.get("message") ?? "").trim(),
+      // anti-bot: hidden honeypot + time-to-fill
+      website: String(data.get("website") ?? ""),
+      elapsedMs: openedAt.current ? Date.now() - openedAt.current : 0,
     };
 
     // Analytics: every submit-button click (Google Analytics → Events).
@@ -59,15 +69,20 @@ export default function OrderForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      if (!res.ok) throw new Error("send failed");
+      if (!res.ok) {
+        const errBody = await res.json().catch(() => null);
+        throw new Error(errBody?.error ?? "");
+      }
 
       // Analytics: a completed, delivered order request (the number that matters).
       sendGAEvent("event", "order_request", { item: payload.item });
       form.reset();
       toast.success("Thank you! Your request is on its way to Jamie. 💜", { duration: 6000 });
-    } catch {
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "";
       toast.error(
-        "Sorry — that didn't send. Please email jamiecannady4102@gmail.com or text (252) 571-0542.",
+        msg ||
+          "Sorry — that didn't send. Please email jamiecannady4102@gmail.com or text (252) 571-0542.",
         { duration: 8000 }
       );
     } finally {
@@ -108,6 +123,12 @@ export default function OrderForm() {
         </div>
 
         <form className="form reveal" style={{ "--i": 1 } as React.CSSProperties} onSubmit={handleSubmit} noValidate>
+          {/* Honeypot — hidden from people, tempting to bots. Must stay empty. */}
+          <div className="hp" aria-hidden="true">
+            <label htmlFor="f-website">Website</label>
+            <input id="f-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+          </div>
+
           <div className="field" data-invalid={errors.name ? "true" : "false"}>
             <label htmlFor="f-name">
               Your name <span className="req">*</span>

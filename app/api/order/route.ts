@@ -11,9 +11,56 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const esc = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
+/* ---------------- Spam / bot protection ---------------- */
+
+// Max field lengths — anything longer is a bot dumping payload.
+const MAX = { name: 100, email: 200, phone: 40, item: 120, message: 2000 };
+
+// Minimum time a human takes to fill the form (client-measured, so no clock skew).
+const MIN_FILL_MS = 3000;
+
+// Links in the message. Customers may paste one inspiration link; spam dumps many.
+const MAX_LINKS = 2;
+
+// Best-effort in-memory rate limit. Serverless instances are ephemeral and there
+// may be several, so this throttles bursts rather than guaranteeing a hard cap.
+const WINDOW_MS = 10 * 60 * 1000;
+const MAX_PER_WINDOW = 5;
+const hits = new Map<string, { count: number; first: number }>();
+
+function rateLimited(ip: string): boolean {
+  const now = Date.now();
+
+  // prune occasionally so the map can't grow without bound
+  if (hits.size > 2000) {
+    for (const [k, v] of hits) if (now - v.first > WINDOW_MS) hits.delete(k);
+  }
+
+  const hit = hits.get(ip);
+  if (!hit || now - hit.first > WINDOW_MS) {
+    hits.set(ip, { count: 1, first: now });
+    return false;
+  }
+  hit.count += 1;
+  return hit.count > MAX_PER_WINDOW;
+}
+
+function clientIp(req: Request): string {
+  const fwd = req.headers.get("x-forwarded-for");
+  return fwd?.split(",")[0]?.trim() || req.headers.get("x-real-ip") || "unknown";
+}
+
 export async function POST(req: Request) {
   if (!process.env.RESEND_API_KEY) {
     return NextResponse.json({ error: "Email is not configured." }, { status: 500 });
+  }
+
+  // 1) Throttle bursts from one address.
+  if (rateLimited(clientIp(req))) {
+    return NextResponse.json(
+      { error: "You've sent a few requests already — please try again in a little while." },
+      { status: 429 }
+    );
   }
 
   let body: Record<string, unknown>;
@@ -21,6 +68,21 @@ export async function POST(req: Request) {
     body = await req.json();
   } catch {
     return NextResponse.json({ error: "Invalid request." }, { status: 400 });
+  }
+
+  // 2) Honeypot: a hidden field no human ever sees. Pretend success so bots
+  //    don't learn they were caught, but send nothing.
+  if (String(body.website ?? "").trim() !== "") {
+    return NextResponse.json({ ok: true });
+  }
+
+  // 3) Time trap: humans don't complete a form in under a few seconds.
+  const elapsed = Number(body.elapsedMs);
+  if (!Number.isFinite(elapsed) || elapsed < MIN_FILL_MS) {
+    return NextResponse.json(
+      { error: "That came through a little too fast — please try again." },
+      { status: 400 }
+    );
   }
 
   const name = String(body.name ?? "").trim();
@@ -31,6 +93,26 @@ export async function POST(req: Request) {
 
   if (!name || !message || !EMAIL_RE.test(email)) {
     return NextResponse.json({ error: "Please fill in your name, a valid email, and details." }, { status: 400 });
+  }
+
+  // 4) Length caps.
+  if (
+    name.length > MAX.name ||
+    email.length > MAX.email ||
+    phone.length > MAX.phone ||
+    item.length > MAX.item ||
+    message.length > MAX.message
+  ) {
+    return NextResponse.json({ error: "That's longer than we can accept — please shorten it." }, { status: 400 });
+  }
+
+  // 5) Link flood — the classic spam signature.
+  const linkCount = (message.match(/https?:\/\/|www\./gi) ?? []).length;
+  if (linkCount > MAX_LINKS) {
+    return NextResponse.json(
+      { error: "Please remove the links from your message and try again." },
+      { status: 400 }
+    );
   }
 
   const rows: [string, string][] = [

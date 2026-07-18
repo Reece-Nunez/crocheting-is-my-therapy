@@ -82,6 +82,30 @@ components/
   sitemap (`https://crochetingismytherapy.com/sitemap.xml`) so Google indexes it. Also create
   a **Google Business Profile** for local "crochet near me" visibility.
 
+## Spam & bot protection
+
+The order form (`/api/order`) is the only public write endpoint, so it's layered:
+
+1. **Honeypot** — a hidden `website` field (`.hp`, positioned off-screen rather than
+   `display:none`, which some bots skip). If filled, the API returns a fake `200` and sends
+   nothing, so bots don't learn they were caught.
+2. **Time trap** — the client measures how long the form was open and sends `elapsedMs`.
+   Under 3s is rejected. Measured client-side so a skewed device clock can't false-reject.
+3. **Rate limit** — max 5 submissions per IP per 10 minutes → `429`. In-memory, so it's
+   best-effort across serverless instances (throttles bursts rather than a hard cap).
+4. **Length caps** — name/email/phone/item/message are bounded; oversized payloads rejected.
+5. **Link flood** — more than 2 links in the message is rejected (one inspiration link from
+   a real customer still gets through).
+
+Tuning lives at the top of `app/api/order/route.ts` (`MAX`, `MIN_FILL_MS`, `MAX_LINKS`,
+`WINDOW_MS`, `MAX_PER_WINDOW`).
+
+**Security headers** are set in `next.config.mjs`: `X-Content-Type-Options`, `X-Frame-Options`,
+`Referrer-Policy`, `Permissions-Policy`, plus `no-store` + `noindex` on `/api/*`.
+
+**If spam still gets through**, the next step is a CAPTCHA — Cloudflare Turnstile is free and
+mostly invisible; it needs a Cloudflare account for a site key + secret.
+
 ## Analytics
 
 Order-form usage is tracked with **Google Analytics 4** via `@next/third-parties/google`:
