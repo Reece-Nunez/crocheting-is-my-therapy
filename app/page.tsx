@@ -9,12 +9,14 @@ import Social from "@/components/Social";
 import Footer from "@/components/Footer";
 import Scallop from "@/components/Scallop";
 import JsonLd from "@/components/JsonLd";
+import Scripture from "@/components/Scripture";
 
 export default function Home() {
   return (
     <>
       <JsonLd />
       <a className="skip-link" href="#shop">Skip to the shop</a>
+      <Scripture />
       <Nav />
       <main id="top">
         <Hero />

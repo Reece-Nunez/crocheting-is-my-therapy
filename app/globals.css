@@ -283,6 +283,41 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .tlink:hover, .tlink:focus-visible { border-bottom-color: var(--color-accent); gap: 0.7em; }
 
 /* ============================================================= *
+ *  Scripture band (very top of page)
+ * ============================================================= */
+.scripture {
+  background: var(--color-accent-soft);
+  border-bottom: 1px solid color-mix(in oklab, var(--color-accent) 18%, transparent);
+}
+.scripture__inner {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: var(--space-2xs) var(--space-sm);
+  padding-block: var(--space-sm);
+  text-align: center;
+}
+.scripture__verse {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  color: var(--color-accent-deep);
+  max-width: 62ch;
+}
+.scripture__ref {
+  font-style: normal;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  white-space: nowrap;
+}
+
+/* ============================================================= *
  *  Nav
  * ============================================================= */
 .nav {
@@ -786,6 +821,10 @@ a.order__contact-row:hover { color: var(--color-accent-deep); }
 @media (max-width: 40rem) {
   .section { padding-block: var(--space-2xl); }
   .shop__grid { grid-template-columns: 1fr; }
+
+  /* keep the verse band compact so it doesn't eat the fold */
+  .scripture__inner { padding-block: var(--space-xs); gap: 2px var(--space-xs); }
+  .scripture__verse { font-size: var(--text-xs); line-height: 1.4; }
   .hero__cta .btn { flex: 1 1 auto; }
   .footer__meta { justify-content: center; text-align: center; }
 
