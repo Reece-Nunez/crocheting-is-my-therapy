@@ -3,7 +3,7 @@ import logo from "@/public/logo-transparent.png";
 
 export default function Wordmark({ footer = false }: { footer?: boolean }) {
   return (
-    <a className="wordmark" href="#top" aria-label="Crocheting is my Therapy — home">
+    <a className="wordmark" href="#top" aria-label="Crocheting Is My Therapy — home">
       <Image
         src={logo}
         alt=""
@@ -13,7 +13,7 @@ export default function Wordmark({ footer = false }: { footer?: boolean }) {
         priority={!footer}
       />
       <span>
-        Crocheting is my {footer ? "Therapy" : <b>Therapy</b>}
+        Crocheting Is My {footer ? "Therapy" : <b>Therapy</b>}
       </span>
     </a>
   );

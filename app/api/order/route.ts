@@ -4,7 +4,7 @@ import { Resend } from "resend";
 // Where order emails come from / go to. Override via env if needed.
 // NOTE: the "from" domain must be verified in Resend (Domains tab) or the
 // send will fail. crochetingismytherapy.com should be verified there.
-const FROM = process.env.ORDER_FROM_EMAIL ?? "Crocheting is my Therapy <orders@crochetingismytherapy.com>";
+const FROM = process.env.ORDER_FROM_EMAIL ?? "Crocheting Is My Therapy <orders@crochetingismytherapy.com>";
 const TO = process.env.ORDER_TO_EMAIL ?? "jamiecannady4102@gmail.com";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

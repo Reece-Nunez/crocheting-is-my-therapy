@@ -3,9 +3,9 @@
 
 export const site = {
   url: "https://crochetingismytherapy.com",
-  name: "Crocheting is my Therapy",
+  name: "Crocheting Is My Therapy",
   tagline: "Handmade with Love",
-  title: "Crocheting is my Therapy — Handmade Crochet Goods",
+  title: "Crocheting Is My Therapy — Handmade Crochet Goods",
   description:
     "Handmade crochet goods by Jamie Cannady — ruffle & matching hats, hat & scarf sets, leg warmers, shoulder bags, pocketbooks, Bible & notebook covers, throw blankets, chair covers, baby blankets and comforters. Cozy, one-of-a-kind, made to order with love. Est. 2020.",
   shortDescription: "Cozy, one-of-a-kind crochet goods, made to order with love.",
@@ -37,7 +37,7 @@ export const site = {
     "handmade gifts",
     "Maple Hill NC",
     "North Carolina crochet",
-    "Crocheting is my Therapy",
+    "Crocheting Is My Therapy",
     "Jamie Cannady",
   ],
 } as const;

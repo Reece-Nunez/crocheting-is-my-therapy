@@ -5,8 +5,8 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="wrap footer__inner">
-        <a href="#top" aria-label="Crocheting is my Therapy — home">
-          <Image src={logo} alt="Crocheting is my Therapy" width={96} height={96} className="footer__logo" />
+        <a href="#top" aria-label="Crocheting Is My Therapy — home">
+          <Image src={logo} alt="Crocheting Is My Therapy" width={96} height={96} className="footer__logo" />
         </a>
         <p className="footer__tag">Handmade with love</p>
         <div className="footer__links">

@@ -28,7 +28,7 @@ export default function Hero() {
         <div className="hero__art reveal" style={{ "--i": 1 } as React.CSSProperties}>
           <Image
             src={logo}
-            alt="Crocheting is my Therapy — Handmade with Love"
+            alt="Crocheting Is My Therapy — Handmade with Love"
             className="hero__logo"
             sizes="(max-width: 60rem) 340px, 470px"
             priority
