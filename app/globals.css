@@ -304,8 +304,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .scripture__verse {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: var(--text-sm);
-  line-height: 1.45;
+  font-size: var(--text-md);
+  line-height: 1.4;
   color: var(--color-accent-deep);
   max-width: 62ch;
 }
@@ -826,7 +826,7 @@ a.order__contact-row:hover { color: var(--color-accent-deep); }
 
   /* keep the verse band compact so it doesn't eat the fold */
   .scripture__inner { padding-block: var(--space-xs); gap: 2px var(--space-xs); }
-  .scripture__verse { font-size: var(--text-xs); line-height: 1.4; }
+  .scripture__verse { font-size: var(--text-sm); line-height: 1.4; }
   .hero__cta .btn { flex: 1 1 auto; }
   .footer__meta { justify-content: center; text-align: center; }
 
