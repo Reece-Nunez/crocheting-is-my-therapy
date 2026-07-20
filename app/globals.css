@@ -832,9 +832,14 @@ a.order__contact-row:hover { color: var(--color-accent-deep); }
 
   /* compact wordmarks so the hamburger fits on small phones */
   .nav__inner { gap: var(--space-sm); }
-  .nav .wordmark { font-size: var(--text-base); gap: var(--space-2xs); min-width: 0; }
-  .nav .wordmark span { overflow: hidden; text-overflow: ellipsis; }
-  .nav .wordmark__logo { height: 40px; width: 40px; }
+  .nav .wordmark {
+    font-size: var(--text-md);
+    gap: var(--space-xs);
+    min-width: 0;
+    white-space: normal;   /* allow the brand to wrap so it can be bigger */
+    line-height: 1.08;
+  }
+  .nav .wordmark__logo { height: 44px; width: 44px; }
   .wordmark__logo--footer { height: 56px; width: 56px; }
   .footer__meta .wordmark { font-size: var(--text-base); }
 }
